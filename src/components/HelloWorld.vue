@@ -1,62 +1,49 @@
 <template>
-  <div class="hello">
+  <div class="container">
 
-    <div class="container">
-      <h3>Futurice Github repositories # {{total}}</h3>
+    <h3>Futurice Github repositories # {{total}}</h3>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th> # </th>
-          <th>Name</th>
-          <th>Created</th>
-          <th>Language</th>
-          <th>License</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(rep,index) in reposData">
-          <th scope="row">{{index+1}}</th>
-          <td>{{ rep.name}}</td>
-          <td> {{ dateFormatter(rep.created_at) }}</td>
-          <td> {{ rep.language}} </td>
-          <td>
-            <span v-if="rep.license"> {{ rep.license.name}}</span>
-            <span v-else> Not defined </span> 
-          </td>
-          <td> <a v-bind:href="rep.svn_url" target="_blank">Github</a> </td>
-        </tr>       
-        </tbody>
-      </table>
-
+    <div class="row">
+        <div class="col chart-wrapper">
+          <chart-component :reposData="reposData"/>
+      </div>
     </div>
+
+    <div class="row">
+        <repositories-list :reposData="reposData"/>
+    </div>
+
   </div>
+
 </template>
 
 <script>
 
 import RepoService from '@/services/RepoService'
+import ChartComponent from '@/components/ChartComponent'
+import RepositoriesList from '@/components/RepositoriesList'
+
+import { Chart } from 'chart.js'
+import 'chart.piecelabel.js'
+
 
 export default {
   name: 'HelloWorld',
+  components: { ChartComponent, RepositoriesList },
   data () {
     return {
-      reposData: [],
-      total: 0
+      total: 0,
+      reposData: []
     }
   },
-  mounted() {
+  created() {
     this.getRepositories()
   },
   methods: {
       async getRepositories () {
-          const response = await RepoService.getRepositories()
-          this.reposData = response.data
-          this.total = this.reposData.length
-      },
-      dateFormatter(date){
-        return date.substring(0, 10);
+        const response = await RepoService.getRepositories()
+        this.reposData = response.data
+        this.total = this.reposData.length
       }
   }
 }
@@ -67,33 +54,17 @@ export default {
 
 $color: red;
 
-h2{
+h3 {
   color: $color;
-}
-.container {
-  width:690px;
-  float: left;
+  margin-bottom: 20px;
 }
 
-
-table {
-  display: block;
-  height: 500px;
-  overflow-y: scroll;
-  text-align: left;
-
-  tr>td:nth-child(1),
-  tr>th:nth-child(1)  {
-    width: 5px;
-  }
-
-  tr>td, tr>th {
-    width:120px;
-    white-space: nowrap;
-    display: inline-block;
-    overflow: hidden !important;
-    text-overflow: ellipsis;
-  }
+.row {
+  margin-bottom: 20px;
 }
 
+.chart-wrapper {
+    width: 100%;
+    text-align: center;
+}
 </style>
