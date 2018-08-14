@@ -1,7 +1,7 @@
 import Api from '@/services/Api'
 const link = "https://api.github.com"
 import axios from 'axios'
-const accessToken = 'ba249487a627a968d58253d50b67378a618167a5'
+const accessToken = '4951cdd1649d7a05a97c35116e334f6e99bce013'
 export default {
 
     getRepositories() {
