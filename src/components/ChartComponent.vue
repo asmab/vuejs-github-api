@@ -1,13 +1,13 @@
 <template>
-<div class="container">
+<div class="chart-container">
     <div class="row">
         <div class="col">
-            <div class="donut-canvas-wrapper">
+            <div class="canvas-wrapper">
                 <canvas class="donutChart" style="display: inline-block" ref="repositoriesByLanguageChart"></canvas>
             </div>
         </div>
         <div class="col">
-            <div class="bar-canvas-wrapper">
+            <div class="canvas-wrapper">
                 <canvas id="bar-chart" style="display: inline-block"></canvas>
             </div>
         </div>
@@ -23,6 +23,7 @@ const languages = ['JavaScript', 'Ruby', 'Objective-C']
 const years = ['2010','2011','2012','2013','2014']
 
 export default {
+    name: 'StatisticsComponent',
     props:{
         reposData: {
             required: true
@@ -190,14 +191,9 @@ export default {
 
 <style lang="scss" scoped>
 
-   .donutChart {
-        width: 300px;
-    }
-    .donut-canvas-wrapper{
+    .canvas-wrapper{
         background-color: #fcf8f7;
-        //margin-bottom:20px;
+        border-radius: 5px;
     }
-    .bar-canvas-wrapper{
-        background-color: #fcf8f7;
-    }
+
 </style>
