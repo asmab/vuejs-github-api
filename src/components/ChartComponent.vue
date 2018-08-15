@@ -33,7 +33,7 @@ export default {
         return {
             total: 0,
             colors: {
-                red: 'rgb(251, 0, 6)',
+                red: '#ff3333',
                 orange: 'rgb(255, 159, 64)',
                 yellow: '#FDC02F',
                 green: 'rgb(75, 192, 192)',
@@ -42,29 +42,29 @@ export default {
                 lightgrey: '#ECEFF1',
                 darkgrey: '#404040'
             },
-            barChartData: [],
-            secondChartData:[]
+            donutChartData: [],
+            barChartData:[]
         }
     },
     watch: {
         reposData: function (val) {
 
 
-           // Prepare for Donut Chart
+           // Data for Donut Chart
             var sum = 0
             languages.forEach(language => {
                 const total = this.getProjectsByLanguage(val,language)
                 sum+= total
-                this.barChartData.push(total)
+                this.donutChartData.push(total)
             })
             
             const rest = val.length - sum
-            this.barChartData.push(rest)
+            this.donutChartData.push(rest)
 
-            // Prepare for Bar Chart
+            // Data for Bar Chart
             years.forEach(year => {
                 const total = this.getProjectsByDate(val,year)
-                this.secondChartData.push(total)
+                this.barChartData.push(total)
             })
 
 
@@ -83,9 +83,9 @@ export default {
 
 
             // Bar chart 
-            var context2 = document.getElementById("bar-chart")
-            var config2 = this.commonBarConfig2()
-            var secondChart = new Chart(context2, config2);
+            var barChartContext = document.getElementById("bar-chart")
+            var barChartConfig = this.commonBarConfig()
+            var secondChart = new Chart(barChartContext, barChartConfig);
         },
         prepData () {
 
@@ -93,14 +93,14 @@ export default {
                 // Note that the ordering of entries acrosss data, backgroundColor 
                 // and labels must correspond.                 
                 datasets: [{
-                    data: this.barChartData,
+                    data: this.donutChartData,
                     backgroundColor: [
                         this.colors.red,
                         this.colors.yellow,
                         this.colors.blue,
                         this.colors.green
                     ],
-                    label: 'Projects by language',
+                    label: 'Projects/language',
                     borderWidth: [0, 0, 0],
                     strokeColor: "#FF0000"
                 }],
@@ -133,13 +133,16 @@ export default {
                         fontSize: 11,
                         position: 'outside'
                     },
-                    //cutoutPercentage: 70,
                     responsive: true,
                     legend: {
                         position: 'bottom',
                         labels: {
                             fontSize: 11
                         }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Number of Projects per Language'
                     },
                     animation: {
                         animateScale: false,
@@ -148,7 +151,7 @@ export default {
                 }
             }
         },
-        commonBarConfig2 (){
+        commonBarConfig (){
             return {
                 type:'bar',
                 data: {
@@ -163,8 +166,7 @@ export default {
                                 this.colors.green,
                                 this.colors.purple
                             ],
-                            // ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                            data: this.secondChartData
+                            data: this.barChartData
                         }
                     ]                   
                 },
@@ -172,7 +174,7 @@ export default {
                     legend: { display: false },
                     title: {
                         display: true,
-                        text: 'Projects per year'
+                        text: 'NUmber of Projects created per year'
                     }
                 }
             }

@@ -91,7 +91,7 @@ th {
     font-size: 12px;
     color: black;
     text-transform: uppercase;
-    background-color: orange;
+    background-color: #ffcc80;
 }
 
 tr  {

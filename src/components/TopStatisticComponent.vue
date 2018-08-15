@@ -2,28 +2,28 @@
 <div class="chart-container">
     <div class="row">
         <div class="col">
-            <div class="top-wrapper">
+            <div class="green top-wrapper">
                <div class="content">
                     <span class="total"> {{ total }}</span> Github Repositories
                </div>
             </div>
         </div>
         <div class="col">
-            <div class="top-wrapper">
+            <div class=" yellow top-wrapper">
                 <div class="content">
                     <span class="total"> {{ publicRepos }}</span> Public Repositories
                </div>
             </div>
         </div>
         <div class="col">
-            <div class="top-wrapper">
+            <div class="purple top-wrapper">
                 <div class="content">
                     <span class="total"> {{ publicMembers }}</span> Public Members
                </div>
             </div>
         </div>
         <div class="col">
-            <div class="top-wrapper">
+            <div class="red top-wrapper">
                 <div class="content">
                     <span class="total"> {{ publicGists }}</span> Public Gists
                </div>
@@ -102,5 +102,16 @@ export default{
     font-size: 30px;
     font-weight: bold;
 }
-
+.green {
+    background-color: rgb(75, 192, 192);
+}
+.yellow {
+    background-color: #FDC02F;
+}
+.purple {
+    background-color: rgb(153, 102, 255);
+}
+.red {
+    background-color: #ff3333;
+}
 </style>
